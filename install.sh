@@ -30,7 +30,7 @@ fi
 
 # Распаковка архива
 echo "Распаковка архива..."
-tar -xzf "$FILENAME"
+tar -xjf "$FILENAME"
 
 # Проверка успешности распаковки
 if [ $? -ne 0 ]; then
@@ -48,9 +48,10 @@ sudo mkdir -p /opt
 sudo mv "$DIR_NAME" "$INSTALL_PATH"
 
 # Проверка существования исполняемого файла
-if [ -f "$INSTALL_PATH/renpy.sh" ]; then
-
-    EXEC_FILE="renpy.sh"
+EXEC_FILE="renpy.sh"
+if [ ! -f "$INSTALL_PATH/$EXEC_FILE" ]; then
+    echo "Ошибка: Не найден исполняемый файл $INSTALL_PATH/$EXEC_FILE"
+    exit 1
 fi
 
 # Создание .desktop файла
